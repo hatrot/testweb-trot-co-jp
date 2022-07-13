@@ -17,8 +17,7 @@ jobs:
         id: deploy-app
         uses: google-github-actions/deploy-appengine@v0
         with:
-          project_id: "testweb-trot-co-jp"
-# ${{ secrets.GCP_PROJECT_ID }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}
           version: v1
