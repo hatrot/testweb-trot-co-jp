@@ -1,10 +1,10 @@
-name: Go
+name: Deploy
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
 
 jobs:
   deplay-staging:
@@ -17,7 +17,7 @@ jobs:
         id: deploy-app
         uses: google-github-actions/deploy-appengine@v0
         with:
-          project_id: testweb-trot-co-jp
+          project_id: "testweb-trot-co-jp"
 # ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}

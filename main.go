@@ -51,7 +51,7 @@ func Error503Handler(c echo.Context) error {
 
 // Main function ==================================================
 func IndexHandler(c echo.Context) error {
-	// c.Response().Header().Set("Cache-Control", "no-store") // Static contents
+	c.Response().Header().Set("Cache-Control", "no-store")
 	c.Response().Header().Set("Content-Type", "text/plain")
 	return c.String(http.StatusOK, "HTTP/2 200 OK\n\nGitHub Actions : Hello world\n\n")
 }
