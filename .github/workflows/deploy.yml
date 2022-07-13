@@ -21,7 +21,7 @@ jobs:
           deliverables: app.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}
           version: v2
-          promote: false
+          promote: true
 
       - name: Deploy an App Engine cron
         id: deploy-cron
