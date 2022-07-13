@@ -20,5 +20,15 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}
-          version: v1
+          version: v2
           promote: false
+
+      - name: Deploy an App Engine cron
+        id: deploy-cron
+        uses: google-github-actions/deploy-appengine@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          deliverables: cron.yaml
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          version: v2
+          promote: true
