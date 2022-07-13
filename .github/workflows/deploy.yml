@@ -12,11 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Deploy an App Engine app
         id: deploy-app
         uses: google-github-actions/deploy-appengine@v0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: testweb-trot-co-jp
+# ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}
           version: v1
