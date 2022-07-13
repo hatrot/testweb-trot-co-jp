@@ -18,8 +18,8 @@ func main() {
 	//
 	e.GET("/_ah/health", healthCheckHandler)
 	e.GET("/_ah/warmup", warmupHandler)
-	e.GET("/*", Error503Handler)
-	// e.GET("/*", IndexHandler)
+	// e.GET("/*", Error503Handler)
+	e.GET("/*", IndexHandler)
 	//
 	port := os.Getenv("PORT")
 	if port == "" {
