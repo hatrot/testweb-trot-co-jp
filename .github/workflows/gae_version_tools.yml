@@ -29,7 +29,6 @@ jobs:
 
   job-clean:
     if: github.event.inputs.tags == 'clean'
-    description: '待機バージョンを最新３つ残しそれ以外を削除する'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -38,5 +37,7 @@ jobs:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
       - name: テストコマンドの実行
-        run: gcloud app versions list | grep 20......t.........0.00 | sort -r | awk '3 < NR{print $2}' | xargs gcloud app versions delete
+        run: |
+          echo 'GAEの待機バージョンを最新３つ残しそれ以外を削除します'
+          gcloud app versions list | grep 20......t.........0.00 | sort -r | awk '3 < NR{print $2}' | xargs gcloud app versions delete
 
