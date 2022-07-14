@@ -22,7 +22,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           # version: v1  # 切り戻し対応、バージョン名がデフォルト(日付時間)
-          version: stopped_503error
+          version: stopped-503error
           promote: true
 
       - name: Deploy an App Engine cron
@@ -32,5 +32,5 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: cron.yaml
           # version: v1  # 切り戻し対応、バージョン名がデフォルト(日付時間)
-          version: stopped_503error
+          version: stopped-503error
           promote: true
