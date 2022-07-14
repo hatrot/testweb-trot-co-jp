@@ -25,9 +25,8 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
-      - run: |
-          echo 'GAEで稼働中のバージョンを表示します'
-          gcloud app versions list | grep ' 1.00 ' | sort -r | awk 'NR==1{print $2}' | xargs echo
+      - run: echo 'GAEで稼働中のバージョンを表示します'
+      - run: gcloud app versions list | grep ' 1.00 ' | sort -r | awk 'NR==1{print $2}' | xargs echo '稼働バージョン ='
   
   job-clean:
     if: github.event.inputs.tags == 'clean'
