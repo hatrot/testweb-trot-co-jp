@@ -70,7 +70,7 @@ jobs:
       - name: テストコマンドの実行
         run: |
           echo 'GAE内の日付バージョン最新を公開します'
-          gcloud app versions list | grep 20......t......... | sort | awk 'NR==1{print $2}' | xargs gcloud app versions migrate
+          gcloud app versions list | grep 20......t......... | sort -r | awk 'NR==1{print $2}' | xargs gcloud app versions migrate
 
   job-switchback:
     if: github.event.inputs.tags == 'server-switchback'
@@ -84,5 +84,5 @@ jobs:
       - name: テストコマンドの実行
         run: |
           echo 'GAE内の日付バージョン切り戻し版を公開します'
-          gcloud app versions list | grep 20......t......... | sort | awk 'NR==2{print $2}' | xargs gcloud app versions migrate
+          gcloud app versions list | grep 20......t......... | sort -r | awk 'NR==2{print $2}' | xargs gcloud app versions migrate
 
