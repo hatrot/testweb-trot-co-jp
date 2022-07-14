@@ -1,4 +1,4 @@
-name: Deploy & released the stopped version
+name: Deploy&Released STOP version.
 
 on: [ workflow_dispatch ]
 
