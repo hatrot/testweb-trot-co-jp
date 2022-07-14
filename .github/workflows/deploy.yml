@@ -22,6 +22,7 @@ jobs:
         id: deploy-app
         uses: google-github-actions/deploy-appengine@v0
         with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           version: v2
           promote: false
@@ -30,6 +31,7 @@ jobs:
         id: deploy-cron
         uses: google-github-actions/deploy-appengine@v0
         with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: cron.yaml
           version: v2
           promote: true
