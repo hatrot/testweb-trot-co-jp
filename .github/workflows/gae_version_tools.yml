@@ -8,7 +8,7 @@ on:
         required: true
         type: choice
         options:
-        - test
+        - show
         - clean
         - server-stop
         - server-start
@@ -16,8 +16,8 @@ on:
 
 jobs:
 
-  job-test:
-    if: github.event.inputs.tags == 'test'
+  job-show:
+    if: github.event.inputs.tags == 'show'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,11 +25,10 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
-      - name: テストコマンドの実行
-        run: |
-          gcloud info
-          echo "TEST"
-
+      - run: |
+          echo 'GAEで稼働中のバージョンを表示します'
+          gcloud app versions list | grep ' 1.00 ' | sort -r | awk 'NR==1{print $2}' | xargs echo
+  
   job-clean:
     if: github.event.inputs.tags == 'clean'
     runs-on: ubuntu-latest
@@ -39,8 +38,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
-      - name: テストコマンドの実行
-        run: |
+      - run: |
           echo 'GAEの日付バージョン(待機中)を最新３つ残しそれ以外を削除します'
           gcloud app versions list | grep 20......t.........0.00 | sort -r | awk '3 < NR{print $2}' | xargs gcloud app versions delete
 
@@ -53,8 +51,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
-      - name: テストコマンドの実行
-        run: |
+      - run: |
           echo 'GAE内のstop503errorバージョンを公開します'
           gcloud app versions migrate stopped-503error
 
@@ -67,8 +64,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
-      - name: テストコマンドの実行
-        run: |
+      - run: |
           echo 'GAE内の日付バージョン最新を公開します'
           gcloud app versions list | grep 20......t......... | sort -r | awk 'NR==1{print $2}' | xargs gcloud app versions migrate
 
@@ -81,8 +77,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - uses: google-github-actions/setup-gcloud@v0
-      - name: テストコマンドの実行
-        run: |
+      - run: |
           echo 'GAE内の日付バージョン切り戻し版を公開します'
           gcloud app versions list | grep 20......t......... | sort -r | awk 'NR==2{print $2}' | xargs gcloud app versions migrate
 
