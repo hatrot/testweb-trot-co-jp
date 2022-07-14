@@ -13,13 +13,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
       - name: Deploy an App Engine app
         id: deploy-app
         uses: google-github-actions/deploy-appengine@v0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          # わけてアップするとリージョン違いを懸念した警告がでるので合わせ、cronにtimezoneを追加
-          deliverables: app.yaml, cron.yaml
-          credentials: ${{ secrets.GCP_SA_KEY }}
-          version: v3
+          deliverables: app.yaml
+          version: v2
+          promote: false
+
+      - name: Deploy an App Engine cron
+        id: deploy-cron
+        uses: google-github-actions/deploy-appengine@v0
+        with:
+          deliverables: cron.yaml
+          version: v2
           promote: true
