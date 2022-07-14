@@ -1,14 +1,13 @@
 name: GAE versions tools.
 
-on:
-  workflow_dispatch
-    inputs:
-      target:
-        type: choice
-        description: ツールを選択してください。
-        options: 
-        - test
-        - other
+on: workflow_dispatch
+  inputs:
+    target:
+      type: choice
+      description: ツールを選択してください。
+      options: 
+      - test
+      - other
 
 jobs:
 
