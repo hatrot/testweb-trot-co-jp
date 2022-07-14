@@ -1,0 +1,11 @@
+name: GAE versions tools.
+
+on: [ workflow_dispatch ]
+
+jobs:
+  job-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: echo "TEST"
