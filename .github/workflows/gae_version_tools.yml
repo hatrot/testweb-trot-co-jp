@@ -9,7 +9,7 @@ on:
         type: choice
         options:
         - test
-        - other
+        - clean
 
 jobs:
 
@@ -27,4 +27,16 @@ jobs:
           gcloud info
           echo "TEST"
 
+  job-clean:
+    if: github.event.inputs.tags == 'clean'
+    description: '待機バージョンを最新３つ残しそれ以外を削除する'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+      - uses: google-github-actions/setup-gcloud@v0
+      - name: テストコマンドの実行
+        run: gcloud app versions list | grep 20......t.........0.00 | sort -r | awk '3 < NR{print $2}' | xargs gcloud app versions delete
 
