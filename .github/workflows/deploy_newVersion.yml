@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy & released the stopped version
 
 on: [ workflow_dispatch ]
 
@@ -21,8 +21,9 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
-          # version: v2
-          promote: false
+          # version: v1  # 切り戻し対応、バージョン名がデフォルト(日付時間)
+          version: stopped_503error
+          promote: true
 
       - name: Deploy an App Engine cron
         id: deploy-cron
@@ -30,5 +31,6 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: cron.yaml
-          # version: v2
+          # version: v1  # 切り戻し対応、バージョン名がデフォルト(日付時間)
+          version: stopped_503error
           promote: true

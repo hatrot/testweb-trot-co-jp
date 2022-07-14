@@ -1,0 +1,36 @@
+name: Deploy & released the stopped version
+
+on: [ workflow_dispatch ]
+
+jobs:
+  deplay-staging:
+    name: GAE deplay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Authentication setting for Deploy
+        id: deploy-auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Deploy an App Engine app
+        id: deploy-app
+        uses: google-github-actions/deploy-appengine@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          deliverables: app.yaml
+          # version: v1  # 切り戻し対応、バージョン名がデフォルト(日付時間)
+          version: stopped_503error
+          promote: true
+
+      - name: Deploy an App Engine cron
+        id: deploy-cron
+        uses: google-github-actions/deploy-appengine@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          deliverables: cron.yaml
+          # version: v1  # 切り戻し対応、バージョン名がデフォルト(日付時間)
+          version: stopped_503error
+          promote: true
