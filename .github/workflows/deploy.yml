@@ -18,17 +18,8 @@ jobs:
         uses: google-github-actions/deploy-appengine@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          deliverables: app.yaml
+          # わけてアップするとリージョン違いを懸念した警告がでるので合わせ、cronにtimezoneを追加
+          deliverables: app.yaml, cron.yaml
           credentials: ${{ secrets.GCP_SA_KEY }}
-          version: v2
-          promote: false
-
-      - name: Deploy an App Engine cron
-        id: deploy-cron
-        uses: google-github-actions/deploy-appengine@v0
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          deliverables: cron.yaml
-          credentials: ${{ secrets.GCP_SA_KEY }}
-          version: v2
+          version: v3
           promote: true
