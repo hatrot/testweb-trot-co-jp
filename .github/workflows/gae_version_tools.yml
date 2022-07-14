@@ -2,17 +2,18 @@ name: GAE versions tools.
 
 on: [ workflow_dispatch ]
   inputs:
-    target:
+    command:
+      description: 'ツールを選択してください。'
+      required: true
       type: choice
-      description: ツールを選択してください。
-      options: 
+      options:
       - test
       - other
 
 jobs:
 
   job-test:
-    if: github.event.inputs.target == 'test'
+    if: github.event.inputs.command == 'test'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
