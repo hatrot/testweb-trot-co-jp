@@ -10,6 +10,8 @@ on:
         options:
         - test
         - clean
+        - stop
+        - start
 
 jobs:
 
