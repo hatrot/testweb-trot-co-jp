@@ -1,6 +1,6 @@
 name: GAE versions tools.
 
-on: workflow_dispatch
+on: [ workflow_dispatch ]
   inputs:
     target:
       type: choice
