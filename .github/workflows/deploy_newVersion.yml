@@ -1,6 +1,6 @@
 name: Deploy&Released NEW version.
 
-on: [ pull_request ]
+on: [ push ]
 
 jobs:
   deplay-staging:
