@@ -1,6 +1,6 @@
 name: Deploy&Released NEW version.
 
-on: [ workflow_dispatch ]
+on: [ pull_request ]
 
 jobs:
   deplay-staging:
