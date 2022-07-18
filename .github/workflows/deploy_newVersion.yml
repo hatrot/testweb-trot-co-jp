@@ -41,8 +41,8 @@ jobs:
         id: get_nopromote
         run: echo ::set-output name=NOPROMOTE::${GITHUB_REF/refs\/tags\//}
 
-      - name: Do something
-        run: echo  ${{ steps.get_nopromote.outputs.NOPROMOTE }}
+      #- name: Do something
+      #  run: echo  ${{ steps.get_nopromote.outputs.NOPROMOTE }}
 
       - name: Publish of latest date version
         if:  'abc' == 'abc'
