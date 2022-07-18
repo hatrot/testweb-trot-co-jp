@@ -2,4 +2,4 @@ cron:
 - description: "daily job"
   url: /
   timezone: Asia/Tokyo
-  schedule: every day 01:00
+  schedule: every day 02:00
