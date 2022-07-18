@@ -22,7 +22,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: app.yaml
           # version: v1  # 切り戻し対応、コメントアウトでバージョン名がデフォルト(日付時間)
-          promote: true
+          promote: false
 
       - name: Deploy an App Engine cron
         id: deploy-cron
@@ -30,5 +30,17 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           deliverables: cron.yaml
-          # version: v1  # 切り戻し対応、コメントアウトでバージョン名がデフォルト(日付時間)
-          promote: true
+          # version: v1   # gae cron deploy にバージョン切り替え不可
+          # promote: true # gae cron deploy にバージョン切り替え不可
+
+      - uses: actions/checkout@v3
+      - uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+      - uses: google-github-actions/setup-gcloud@v0
+
+      - name: Remove older versions except the latest 3 waiting versions
+        run: gcloud app versions list | grep 20......t.........0.00 | sort -r | awk '3 < NR{print $2}' | xargs gcloud app versions delete
+
+      - name: Publish of latest date version
+        run: gcloud app versions list | grep 20......t......... | sort -r | awk 'NR==1{print $2}' | xargs gcloud app versions migrate
