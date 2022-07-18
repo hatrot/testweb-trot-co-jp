@@ -32,6 +32,10 @@ jobs:
           deliverables: cron.yaml
           # version: v1   # gae cron deploy にバージョン切り替え不可
 
+      - uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
       - uses: google-github-actions/setup-gcloud@v0
 
       - name: Remove older versions except the latest 3 waiting versions
