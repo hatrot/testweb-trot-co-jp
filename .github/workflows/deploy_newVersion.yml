@@ -44,3 +44,6 @@ jobs:
       - name: Get nopromote flag
         id: get_nopromote
         run: echo ::set-output name=NOPROMOTE::${GITHUB_REF/refs\/tags\//}
+
+      - name: Do something
+        run: echo ${{ steps.get_nopromote.outputs.NOPROMOTE }}
