@@ -6,6 +6,8 @@ jobs:
   deplay-staging:
     name: GAE deplay
     runs-on: ubuntu-latest
+    env: |
+      GAE_NOPROMOTE: false    # false:手動公開, true:即時公開したい場合は
     steps:
       - uses: actions/checkout@v3
 
@@ -38,5 +40,5 @@ jobs:
         run: gcloud app versions list | grep 20......t.........0.00 | sort -r | awk '3 < NR{print $2}' | xargs gcloud app versions delete
 
       - name: Publish of latest date version
-        if: ${{secrets.GAE_NOPROMOTE}} == ""
+        if: ${{ GAE_NOPROMOTE }}
         run: gcloud app versions list | grep 20......t......... | sort -r | awk 'NR==1{print $2}' | xargs gcloud app versions migrate
