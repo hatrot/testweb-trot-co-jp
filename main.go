@@ -49,7 +49,7 @@ func Error503Handler(c echo.Context) error {
 	return c.String(http.StatusServiceUnavailable, "HTTP/2 503 Bad\n\n 503 error : Service Unavailable.\n\n")
 }
 
-// Main function ==============================================....
+// Main function =============================================.....
 func IndexHandler(c echo.Context) error {
 	c.Response().Header().Set("Cache-Control", "no-store")
 	c.Response().Header().Set("Content-Type", "text/plain")
